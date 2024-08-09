@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #0000be;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000; /* Make sure the button is above the sidebar */
+}
+
+.sidebar-outerdiv {
+    display: flex;
+    width: 15vw;
+    height: 100vh;
+    background-color: #0000be;
+    position: fixed;
+    top: 0;
+    left: -15vw; /* Hide sidebar off-screen */
+    transition: left 0.3s ease; /* Smooth transition */
+   
+}
+
+.sidebar-outerdiv.open {
+    left: 0; 
+} 
+
+.sidebar-innerdiv {
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar-innerdiv ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+}
+
+.sidebar-innerdiv li {
+    list-style: none;
+    padding: 10px; /* Add space around each item */
+}
+
+.sidebar-innerdiv a {
+    text-decoration: none;
+    color: #fff; /* Set text color to white */
+    display: block; /* Ensure the link fills the list item */
+    padding: 10px; /* Add padding inside the link */
+}
+
+.sidebar-innerdiv a:hover {
+    background-color: #000080; /* Darken the background on hover */
+   font-size: 20px;
+    color: red;
+}
+
+
+.sidebar-innerdiv li{
+    padding-top: 1vh;
+color: #fff;
+border: wheat;
+}
+
+
+
+.sidebar-category{
+    border: wheat;
+}
+.sidebar-innerdiv{
+    padding-left: 2vw;
+padding-top: 10vh;
+}

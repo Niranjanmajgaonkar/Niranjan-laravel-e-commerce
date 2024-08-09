@@ -1,0 +1,126 @@
+.products-all-btn {
+    padding-top: 8vh;
+}
+
+.products-all-btn {
+    display: flex;
+    justify-content: space-between;
+    /* Adjusts spacing between buttons */
+    align-items: center;
+    /* Aligns buttons vertically */
+}
+
+.products-buy-btn {
+    margin-right: 200px;
+
+}
+
+.products-all-btn .btn {
+    display: inline-block;
+    width: 150px;
+    /* Ensures equal width */
+    text-align: center;
+    /* Centers text inside button */
+    padding: 10px 0;
+    /* Adjusts button padding */
+    background-color: #007bff;
+    /* Button background color */
+    color: white;
+    /* Button text color */
+    border: none;
+    /* Removes default border */
+    border-radius: 5px;
+    /* Rounds button corners */
+    text-decoration: none;
+    /* Removes underline from link */
+    font-size: 16px;
+    /* Adjusts text size */
+    cursor: pointer;
+    /* Changes cursor to pointer */
+
+}
+
+.products-all-btn .btn a {
+    color: white;
+    /* Link text color */
+    text-decoration: none;
+    /* Removes underline from link */
+    display: block;
+    /* Makes link fill the button */
+}
+
+.products-all-btn .btn:hover {
+    background-color: #0056b3;
+    /* Darker background on hover */
+}
+
+.single-product-outerdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 30vw;
+
+}
+
+.single-product-innerdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.single-product-innerdiv img {
+    padding-top: 20px;
+    width: 30vw;
+    height: 60vh;
+
+}
+
+.products-descreption {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+    padding-left: 40px;
+    padding-right: 20px;
+}
+
+.products-descreption-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.products-descreption-body h1 {
+    padding-bottom: 20px;
+}
+
+.products-descreption-rating {
+    border: 2;
+    break-after: avoid;
+    display: flex;
+    padding-top: 5px;
+    padding-left: 7px;
+    border-top: 2px solid;
+    margin-top: 40px;
+    border-left: 2px solid;
+    border-bottom: 2px solid red;
+    border-right: 2px solid red;
+}
+
+.products-descreption-rating p {
+    padding: 13px;
+    font-family: cursive;
+    text-decoration: overline;
+    padding-left: 35px;
+}
+
+.products-descreption-body h1 {
+    color: #ff05c9
+}
+
+#single-product-price {
+    padding-top: 20px;
+}

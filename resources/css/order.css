@@ -1,0 +1,115 @@
+.order_product_details_outer {
+    display: flex;
+    
+    justify-content: center;
+}
+
+.order_product_details_form {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.order_product_details {
+    display: flex;
+    border: 2px solid black;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-between;
+
+}
+
+#head {
+    list-style: none;
+justify-content: center;
+/* text-decoration: revert-layer; */
+padding-top: 4vh;
+font-style: bold;
+border-top: 2px solid black;
+border-left: 2px solid black;
+border-right: 2px solid black;
+font-size: 23px;
+display: flex;
+padding-bottom: 20px;
+color: red;
+/* justify-content: space-around; */
+background: radial-gradient(red, transparent);
+color: white;
+font-weight:900; 
+}
+
+.order_product_details_lable {
+    /* padding: 23px; */
+    font-size: 20px;
+    margin: 19px;
+}
+
+.order_product_details_prices {
+    /* padding: 23px; */
+    font-size: 20px;
+    margin: 19px;
+}
+
+.formorder {
+    font-size: 25px;
+}
+
+.formorder input{
+    padding: 3px;
+}
+
+#mainhead{
+    display: flex;
+    justify-content: center;
+}
+
+#payble_amt_lable{
+border-top: 2px solid red;
+border-bottom: 2px solid red;
+border-left: 2px solid red;
+padding: 11px;
+}
+#payble_amt{
+
+    border-right: 2px solid red;
+border-top: 2px solid red;
+border-bottom: 2px solid red;
+padding: 11px;
+}
+
+#product_lable{
+    border-right:2px solid red;
+    padding-bottom:5px;  
+}
+#product_lable2{
+    border-left:2px solid red;
+    padding-bottom:5px;  
+    padding-left:10px; 
+}
+
+#cod{
+ padding-top:10px; 
+ display: flex;
+ padding-left:1vw; 
+ 
+}
+
+#submit_btn{
+    padding-left: 27px;
+font-size: 21px;
+padding-right: 27px;
+display: flex;
+background-color: rgb(42, 85, 229);
+color: white;
+margin-bottom: 1vh;
+margin-left: 8vw;
+border-radius: 8px;
+}
+.form{
+ 
+}
+
+html{
+    background-color:yellow; 
+}

@@ -1,0 +1,57 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.products-innerdiv img {
+    height: 200px;
+    width: 200px;
+}
+
+li {
+    list-style: none;
+    font-weight: bold;
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.products-innerdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    width: calc(25% - 20px); /* Adjust width for four columns with gap */
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.products-innerdiv:hover {
+    transform: translateY(-10px);/* Move the item up*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /*Add a shadow effect*/
+
+}
+
+.products-outerdiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#products-title {
+    margin: 10px 0;
+}
+
+#products-price {
+    padding-top: 20px;
+}
