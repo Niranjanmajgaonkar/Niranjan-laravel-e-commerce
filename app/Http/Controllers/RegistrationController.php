@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,29 +15,56 @@ use Illuminate\Support\Facades\Cache;
 
 class RegistrationController extends Controller
 {
-    private $products = null;
+    protected $combined_data_db = null;
+    protected $combined_data_api = null;
+    protected $products = null;
+    protected $db_product_data = null;
 
     public function __construct()
     {
       
         $this->fetchProducts();
+        $this->fetchProducts_api();
     }
 
 
-    private function fetchProducts()
+    protected function fetchProducts()
     {
         try {
-            // Use cache to store products data for 60 minutes to avoid frequent API calls
-            $this->products = Cache::remember('products', 60, function() {
-                $response = Http::get('https://fakestoreapi.com/products'); // Ensure this URL is correct
-                return json_decode($response, true);
-            });
+            // db product featching
+            $this->db_product_data = Product::all(); // Fetch all product data
+            $this->combined_data_db=$this->db_product_data;
+
+            // Combine the data into a single collection            
+
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch products: ' . $e->getMessage() . ' at line ' . $e->getLine());
+       
+        }
+    }
+    protected function fetchProducts_api()
+    {
+        try {
+           // Use cache to store products data for 60 minutes to avoid frequent API calls
+           $this->combined_data_api = Cache::remember('products', 60, function() {
+            $response = Http::get('https://fakestoreapi.com/products'); // Ensure this URL is correct
+            return json_decode($response, true);
+        });          
+
         } catch (\Exception $e) {
             Log::error('Failed to fetch products: ' . $e->getMessage() . ' at line ' . $e->getLine());
             $this->products = null;
         }
     }
+    public function getapidata() {
 
+        // Return the view with the combined data
+        
+        return view('home', ['combined_data_db' =>$this->combined_data_db,
+                               'combined_data_api'=>$this->combined_data_api]);
+    }
+    
+    
     
     public function login(Request $req)
     {
@@ -78,43 +106,65 @@ class RegistrationController extends Controller
         }
     }
 
-    public function getapidata() {
- 
-                       return view('home', ['data' => $this->products]);
-       
     
-    }
     
     public function category($value) {
+$db_product_data_category =collect($this->combined_data_db)->where('category',$value);
 
-                       return view('home', ['datas' => $this->products ,'category'=>$value]);
+                       return view('home', ['datas' => $this->combined_data_api ,'category'=>$value ,'db_category_data'=>$db_product_data_category]);
        
     
     }
     
 
-    public function logout(){
-
-     Auth::logout();
-         return redirect()->route('login');
-   
-     }
+    public function logout()
+    {
+        // Log out the authenticated customer user
+        Auth::guard('web')->logout();
+    
+        // Redirect to the customer login page
+        return redirect()->route('login');
+    }
+    
      
-     public function singleproduct($id){
-         
-         // we also can be used the firstWhere this for first finded data
-         // and its the important for the such LIKE as the SQL condition we can use COLLECT method in array
-         $product = collect($this->products)->Where('id',$id);
+     public function singleproduct($id ,$c){
+         if($c==1){
+        // finding the api product data
+         $product = collect($this->combined_data_api)->Where('id',$id);
          
          $p_category=$product[$id-1]['category'];
-         $p_category_products= collect($this->products)->Where('category',$p_category);
-         //  dd($p_category_products);
+         $p_category_products= collect($this->combined_data_api)->Where('category',$p_category);
          return view('singleproduct',['singleproduct'=>$product ,'p_category_products'=>$p_category_products]);
+         
+        }elseif ($c == 2) {
+            // fetaching db product data
+            // Convert $this->db_product_data to a collection if it isn't one already
+            $collection = collect($this->combined_data_db);
+         
+            // Filter the collection by product_id
+            $product = $collection->firstWhere('product_id', $id);
+            
+            if ($product) {
+               
+                $category = $product['category'] ?? 'Category not found'; 
+                $p_category_products= collect($collection)->Where('category',$category);
+
+                return view('singleproduct',['singleproduct_db'=>$product ,'p_category_products_db'=>$p_category_products]);
+            } else {
+             
+                return 'Product not found';
+            }
+        }
+        
+
         }
         
         
-            public function buy($id){
-                $productdata =collect($this->products)->where('id',$id);
+            public function buy($id,$c){
+                // api product buy
+                if($c==1){
+                $productdata =collect($this->combined_data_api)->where('id',$id);
+
 
 // when the by using the card to cllicked buy button this time this two line remove the card items
                 if($card_object=Card::where('product_id',$id)->first()){
@@ -122,40 +172,75 @@ class RegistrationController extends Controller
                 }
 
         return view('order',['order_p_id'=>$id,
-                             'productdata' => $productdata
+                             'productdata' => $productdata,
+                             'c'=>1
                             ]
                             );
-           
+                        }
+                elseif($c==2){
+                           // db product buy
+       $collection = collect($this->db_product_data);
+       $product = $collection->firstWhere('product_id', $id);
+
+
+       return view('order',['order_p_id'=>$id,
+       'productdata' => $product,
+       'c'=>2
+      ]
+      );
+                }
              }
 
 
 
-            public function addcards($id){
-                
-      $add_card_product = collect($this->products)->where('id',$id)->first();
+            public function addcards($id,$c){
+                // this step for api cards
+                if($c==1){
 
-      $card_object= new Card();
-      $account_id =AUTH::user();
-     
-     $card_object->product_id=$add_card_product['id'];
-     $card_object->account_id=$account_id->account_id;
-     $card_object->product_name=$add_card_product['title'];
-     $card_object->product_image_link=$add_card_product['image'];
-     $card_object->price=$add_card_product['price'];
-     $card_object->descreption=$add_card_product['description'];
+                    $add_card_product = collect($this->combined_data_api)->where('id',$id)->first();
+                    
+                    $card_object= new Card();
+                    $account_id =AUTH::user();
+                    
+                    $card_object->product_id=$add_card_product['id'];
+                    $card_object->account_id=$account_id->account_id;
+                    $card_object->product_name=$add_card_product['title'];
+                    $card_object->product_image_link=$add_card_product['image'];
+                    $card_object->price=$add_card_product['price'];
+                    $card_object->descreption=$add_card_product['description'];
+                    
+                    $card_object->save();
+                    
+                    
+                    return redirect()->route('card');
+                    
+                }
 
-     $card_object->save();
+                // this step for db products add card
+                elseif($c==2){
+                    $collection = collect($this->db_product_data);
+                    $product = $collection->firstWhere('product_id', $id);
+                    $card_object= new Card();
+                    $account_id =AUTH::user();
     
-     
-        return redirect()->route('card');
-      
-     
-
-             }
-
-
-
-        public function order(Request $req){
+                    $card_object->product_id=$product->product_id;
+                    $card_object->account_id=$account_id->account_id;
+                    $card_object->product_name=$product->title;
+                    $card_object->product_image_link=$product->image;
+                    $card_object->price=$product->price;
+                    $card_object->descreption=$product->description;
+                    
+                    $card_object->save();
+                    
+                    
+                    return redirect()->route('card');
+                }
+                    
+                }
+                
+                
+                
+                public function order(Request $req){
              
       $orderdata=$req->validate([
         'product_id'=>'required',
@@ -171,6 +256,7 @@ class RegistrationController extends Controller
         'account_id'=>'required',
         'order_refrence'=>'required',
         'product_image_link'=>'',
+        'store_id'=>''
 
       ]);
         
@@ -182,7 +268,7 @@ class RegistrationController extends Controller
 
         return redirect()->route('results')
         ->with('success', 'YOUR ORDER PLACED SUCCESSFULLY....#ORDER_REFERENCE_NUMBER : ' . $order_reference_number . '.... THANKS FOR USING NIRANJAN-LARAVEL-E_COMMERCE PLATFORM');
-}
+        }
         else
         {
           return redirect()->route('results')->with('error','YOUR ORDER UNSUCCFULLY . . . THANKS FOR USING NIRANJAN-LARAVEL-E_COMMERCES PLATFORM ');
@@ -217,7 +303,39 @@ return redirect()->route('card');
 
         }
 
+public function forget_password(Request $res){
+    $obj = Registration::where('email',$res->email)->first();
+    
+    if($obj){
 
+        if ($obj->number == $res->mobile){
+            
+            $validate = $res->validate([
+                'email' => 'required|email',   // You can add 'email' validation here
+                'mobile' => 'required|digits:10',
+                'password' => 'required|string|confirmed',
+            ]);
+            
+
+        if($validate){
+            $password =Hash::make($res->password);
+            $obj->password=$password;
+            $obj->save(); // Save the updated password to the database
+            return redirect()->route('login')->with('login')->with('success','Your Password can be succefully forgeted');
+
+        }
+
+        }else{
+            return redirect()->back()->with('forget_error','error to invalid mobile number for validate');
+        }    
+    }else{
+        return redirect()->back()->with('forget_error','error to invalid email for validate');
+        
+    }
+        
+
+
+}
 
     
     }

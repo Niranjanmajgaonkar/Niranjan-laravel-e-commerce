@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_id');
             $table->string('account_id');
             $table->string('order_refrence');
+            $table->string('store_id');
 
 // order_state table chi forgeing key ithe difine keli ye 
             $table->unsignedBigInteger('order_stage')->default(1);

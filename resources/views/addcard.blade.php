@@ -3,8 +3,8 @@
 @extends('htmlstructure')
 
 @section('linkscss')
-    @vite('resources/css/navbar.css')
-    @vite('resources/css/sidebar.css')
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 @endsection
 
 @section('navbar')
@@ -25,15 +25,26 @@
         @foreach($Cards as $Card)
             <div class="Card-item">
                 <div class="Card-img">
-                    <img id="img" src="{{ $Card->product_image_link }}" alt="{{ $Card->title }}">
+                    @if ($Card->product_id>10)
+                        
+                    <img src="{{ asset('storage/' . $Card->product_image_link) }}" alt="{{ $Card->product_name }}">
+                    @elseif($Card->product_id<10)
+                    <img id="img" src="{{ $Card->product_image_link }}" alt="{{ $Card->product_name }}">
+                    @endif
                 </div>
                 <div class="Card-details">
                     <h2>{{ $Card->product_name }}</h2>
                     <p>{{ $Card->price }}</p>
                
                     <div class="Card-buttons">
-                        <a href="/buy/{{ $Card->product_id }}"><button class="btn-buy">Buy</button></a>
+                        @if ($Card->product_id>10)
+                        <a href="/buy/{{ $Card->product_id }}/2"><button class="btn-buy">Buy</button></a>
                       <a href="/remove_product/{{$Card->product_id}}"><button class="btn-remove">Remove</button></a>
+                      @elseif($Card->product_id<10)
+                      <a href="/buy/{{ $Card->product_id }}/1"><button class="btn-buy">Buy</button></a>
+                    <a href="/remove_product/{{$Card->product_id}}"><button class="btn-remove">Remove</button></a>
+
+                      @endif
                     </div>
                 </div>
             </div>

@@ -1,4 +1,6 @@
-
+@php
+     use App\Models\ProductCategory;
+@endphp
     <button id="sidebar-toggle">☰</button>
     <nav class="sidebar-outerdiv" id="sidebar">
         <div class="sidebar-innerdiv">
@@ -6,13 +8,13 @@
                 <li>Category's   ☰</li>
             </div>
             <ul>
-                
-
-                <li><a href="/category/jewelery">jwellery's</a></li>
-                <li><a href="/category/electronics">Electronic's</a></li>
-                <li><a href="/category/men's clothing">Men-Shirts's</a></li>
-                <li><a href="/category/women's clothing">Women's cloths</a></li>
-           
+                @php
+                $obj =ProductCategory::all();
+                @endphp
+@foreach ($obj as $item)
+    
+<li><a href="/category/{{$item->category}}">{{$item->category}}</a></li>
+@endforeach
 
             </ul>
         </div>

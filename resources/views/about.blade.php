@@ -1,10 +1,11 @@
 @extends('htmlstructure')
 
 @section('linkscss')
-    @vite('resources/css/navbar.css')
-    @vite('resources/css/sidebar.css')
-    @vite('resources/css/productscss.css')
-    @vite('resources/css/about.css')
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/productscss.css') }}">
+<link rel="stylesheet" href="{{ asset('css/about.css') }}">
+
 @endsection
 
 @section('navbar')

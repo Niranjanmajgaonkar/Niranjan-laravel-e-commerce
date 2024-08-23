@@ -3,8 +3,8 @@
 @extends('htmlstructure')
 
 @section('linkscss')
-    @vite('resources/css/navbar.css')
-    @vite('resources/css/sidebar.css')
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 @endsection
 
 @section('navbar')
@@ -18,7 +18,12 @@
         @foreach($qurybuilder_order_stage as $Card)
             <div class="Card-item">
                 <div class="Card-img">
+                    @if ($Card->store_id>10)
+                        
+                    <img src="{{ asset('storage/' . $Card->product_image_link) }}" alt="{{ $Card->product_name }}">
+                    @elseif($Card->store_id<10)
                     <img id="img" src="{{ $Card->product_image_link }}" alt="{{ $Card->product_name }}">
+                    @endif
                 </div>
                 <div class="Card-details">
                     <li id="product_name">{{ $Card->product_name }}</li>

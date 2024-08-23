@@ -5,9 +5,10 @@ use Illuminate\Support\Str;
 @extends('htmlstructure')
 
 @section('linkscss')
-    @vite('resources/css/navbar.css')
-    @vite('resources/css/sidebar.css')
-    @vite('resources/css/profile.css')
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+   
 @endsection
 
 @section('navbar')
