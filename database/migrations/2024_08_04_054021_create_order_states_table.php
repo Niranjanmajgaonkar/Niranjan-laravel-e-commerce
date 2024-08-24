@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_states', function (Blueprint $table) {
             $table->id();
-            $table->string('order_stage')->default('order in proccess');
+            $table->string('order_stage')->default('order in process'); // Corrected spelling
             $table->timestamps();
         });
     }

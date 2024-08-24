@@ -153,7 +153,7 @@ public function store_edit($id){
 
 
 public function store_product_edit(Request $res){
-  
+
     $validate_data=$res->validate([
                   'title'=>'required' ,    
                   'price'=>'required' ,    
@@ -172,7 +172,7 @@ public function store_product_edit(Request $res){
                   'quantity'=> $validate_data['quantity'],    
                
              ]);
-     
+
     if($s){
         return redirect()->route('store_product')->with('success','Edit successfully');
     }

@@ -11,4 +11,7 @@ class City extends Model
 
     // Specify the table name
     protected $table = 'citys';
+
+    // Specify the fillable attributes
+    protected $fillable = ['city_state'];
 }

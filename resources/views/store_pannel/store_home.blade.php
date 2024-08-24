@@ -28,7 +28,7 @@
     @endif
         <h1 style="color: red">* EDIT OLD PRODUCT *</h1>
        
-        <form action="{{ route('store_product_edit') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store_product_edit') }}" method="POST" >
             @csrf
             <div>
                 <label for="title">Title:</label>
@@ -51,10 +51,19 @@
                 <input style="padding: 20px" id="description" value="{{$product_edit->description}}" name="description" required></textarea>
             </div>
             <div>
-                <label for="category">Category:</label>
-              <select name="category" id="category">
-                <option value=""></option>
-              </select>
+                @php
+                $obj =ProductCategory::all();
+
+            @endphp
+                <select name="category" id="category" style="    padding-left: 13vw;
+                           padding-right: 9vw;
+                           /* display: flex; */ margin-top:10px;
+                            ">
+                           {{-- <option value="{{$product_edit->category}}">{{$product_edit->category}}</option> --}}
+                           @foreach ($obj as $item)
+                           <option value="{{$item->category}}">{{$item->category}}</option>
+                           @endforeach
+                </select>
             </div>
            
             <div>
