@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+// storage pannel cotroller
+
 class store_pannel_Controller extends Controller
 {
     public function store_login(Request $r)
