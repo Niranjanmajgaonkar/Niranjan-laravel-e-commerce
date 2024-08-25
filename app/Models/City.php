@@ -10,7 +10,7 @@ class City extends Model
     use HasFactory;
 
     // Specify the table name
-    protected $table = 'citys';
+    protected $table = 'cities';
 
     // Specify the fillable attributes
     protected $fillable = ['city_state'];
