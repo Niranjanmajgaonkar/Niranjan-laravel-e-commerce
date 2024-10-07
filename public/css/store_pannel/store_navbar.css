@@ -1,64 +1,98 @@
-*{
+* {
     padding: 0;
     margin: 0;
- }
-
-.store-navbar-outerdiv{
-    display: flex;
-
-flex-direction: row;
-border: 2px solid black;
-width: 100vw;
-height: 52px;
-justify-content: space-between;
-align-items: center;
-background-color: #0f1111;
-color: white;
-
+    box-sizing: border-box;
 }
 
-.store-navbar-innerdiv{
+.store-navbar-outerdiv {
     display: flex;
     flex-direction: row;
     border: 2px solid black;
+    width: 100vw;
+    height: 52px;
+    justify-content: space-between;
     align-items: center;
-
-}
-.store-navbar-innerdiv li{
-list-style: none;
-list-style: none;
-padding-right: 40px;
-font-weight: bold;
-font-family: cursive;
-font-size: 14px;
+    background-color: #0f1111;
+    color: white;
 }
 
-.store-navbar-innerdiv li:hover{
-font-size:14px; 
-}
-.store-navbar-innerdiv a:hover{
-color: red;
-}
-.store-navbar-innerdiv a{
-color: white;
-text-decoration: none;
+.store-navbar-innerdiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid black;
 }
 
-.store-navbar-heading{
-display: flex;
-flex-direction: row;
-padding-left:17px; 
+.store-navbar-innerdiv li {
+    list-style: none;
+    padding-right: 25px;
+    font-weight: bold;
+    font-family: cursive;
+    font-size: 14px;
+    position: relative;
 }
 
-#store-pannel{
-/* border: 2px solid; */
-padding-top: -6%;
-color: red;
-/* padding-top: 2px; */
-padding-left: 14px;
-padding-right: 20px;
-border-left: 2px solid;
-border-right: 2px solid;
-margin-left: 8vw;
+.store-navbar-innerdiv a {
+    color: white;
+    text-decoration: none;
+}
 
+.store-navbar-innerdiv a:hover {
+    color: red;
+}
+
+.store-navbar-heading {
+    display: flex;
+    flex-direction: row;
+    padding-left: 17px;
+}
+
+#store-pannel {
+    padding-left: 14px;
+    padding-right: 20px;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    margin-left: 8vw;
+    color: red;
+}
+
+/* Profile Dropdown Styling */
+.store-profilemenu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Positions the dropdown below the Profile link */
+    left: 0;
+    background-color: black;
+    padding: 10px 0;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    min-width: 150px;
+}
+
+.store-profilemenu li {
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.store-profilemenu li a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    white-space: nowrap;
+    display: block;
+}
+
+.store-profilemenu li a:hover {
+    color: red;
+}
+
+/* Show dropdown on hover */
+.store-profile:hover .store-profilemenu {
+    display: block;
+}
+
+.store-profile {
+    margin-right: 20px;
 }

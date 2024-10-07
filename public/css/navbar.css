@@ -1,44 +1,86 @@
-*{
+* {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
+
 .navbar-outerdiv {
     display: flex;
-    flex-direction: row;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
     background-color: rgb(42, 85, 229);
 }
 
 .navbar-innerdiv {
     display: flex;
-    padding-left: 9%;
-    flex-direction: row;
-    margin-right: 30px;
+    align-items: center;
 }
 
 .navbar-innerdiv li {
     list-style: none;
-    margin-left: 70px;
-    margin-top: 5px;
+    margin-left: 50px;
+    position: relative; /* Required for positioning the dropdown */
 }
 
 .navbar-innerdiv li a {
     color: white;
+    text-decoration: none;
+    font-size: 20px;
+    white-space: nowrap; /* Prevents text from breaking into multiple lines */
 }
 
 .navbar-outerdiv h1 {
     color: white;
-    padding-left: 2vw;
+    margin-left:20px ;
 }
 
-.navbar-innerdiv a {
-    text-decoration-line: none;
-    font-size: 22px;
+.navbar-innerdiv li a:hover {
+    color: red;
 }
 
+/* Add margin to the profile dropdown on the right side */
+.profile {
+    margin-right: 20px; /* Adds margin on the right side of the profile box */
+}
 
-.navbar-innerdiv li :hover{
-   color:red;
+/* Dropdown Styling */
+.profilemenu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Positions the dropdown below the Profile link */
+    left: 0;
+    background-color: rgb(42, 85, 229); /* Background color for the dropdown */
+    padding: 10px 0;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    min-width: 150px; /* Ensures the dropdown has a minimum width */
+}
+
+.profilemenu li {
+    padding: 10px 20px; /* Adds space around each menu item, including the right side */
+    width: 100%; /* Ensures the li takes full width */
+}
+
+.profilemenu li a {
+    color: white; /* Text color set to white */
+    font-size: 18px;
+    text-decoration: none;
+    white-space: nowrap; /* Ensures text does not wrap */
+    display: block; /* Ensures each link takes full line width */
+}
+
+.profilemenu li a:hover {
+    color: red; /* Hover color */
+}
+
+/* Show dropdown on hover */
+.profile:hover .profilemenu {
+    display: block;
+}
+
+.profile a:hover {
+    color: white; /* Keeps the Profile link white while hovering */
 }
